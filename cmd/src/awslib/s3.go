@@ -1,4 +1,8 @@
-package s3
+package awslib
+
+import (
+	"github.com/spf13/viper"
+)
 
 type S3 interface {
 	CreateBucket() error
@@ -13,14 +17,14 @@ type s3env struct {
 	filePath   string
 }
 
-func S3Create(m map[string]string) *s3env {
+func S3Create(v *viper.Viper) *s3env {
 
 	return &s3env{
-		accessKey:  m["accessKey"],
-		secretKey:  m["secretKey"],
-		region:     m["region"],
-		bucketName: m["bucketName"],
-		filePath:   m["filePath"],
+		accessKey:  v.GetString("accessKey"),
+		secretKey:  v.GetString("secretKey"),
+		region:     v.GetString("region"),
+		bucketName: v.GetString("bucketName"),
+		filePath:   v.GetString("filePath"),
 	}
 }
 

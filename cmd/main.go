@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/spf13/viper"
+	"zkfmapf123.github.com/elastic-beanstalk/src/awslib"
 )
 
 func getEnv() *viper.Viper {
@@ -20,8 +20,14 @@ func getEnv() *viper.Viper {
 	return viper.GetViper()
 }
 
+func makeObject(env *viper.Viper) {
+	s3Client := awslib.S3Create(env)
+	s3Client.CreateBucket()
+}
+
 func main() {
 
 	env := getEnv()
-	fmt.Println(env)
+	makeObject(env)
+
 }
